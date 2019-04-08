@@ -1,11 +1,2 @@
-﻿  Operations.cpp
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(58): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(61): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(64): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(67): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(82): warning C4018: '<': signed/unsigned mismatch
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(118): warning C4018: '<': signed/unsigned mismatch
-  stackCalculator.cpp
-  Generating Code...
-c:\users\crist\source\repos\stackcalculator\stackcalculator\operations.cpp(72): warning C4715: 'Operations::applyOperator': not all control paths return a value
+﻿  main.cpp
   stackCalculator.vcxproj -> C:\Users\crist\source\repos\stackCalculator\Debug\stackCalculator.exe

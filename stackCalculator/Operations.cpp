@@ -13,21 +13,28 @@ Operations::~Operations()
 }
 
 
-//FUNCTION TO GET THE INT VALUE OF CHARACTER
+
+/**
+	Changes a CHAR ASCII number to integer number.
+
+	@param character to be changed into an integer.
+	@return the number turned into integer data type
+*/
 int Operations::getNumber(char Number) {
 
 
 	return Number - '0';
 
 }
-//FUNCTION TO RETURN TRUE IF CHAR IS OPERATOR
-bool Operations::isOperator(char op) {
 
 
-	return (op == '+' || op == '-' || op == '/' || op == '*');
 
-}
-//FUNCTION TO TELL OPERATOR PRECEDENCE
+/**
+	Returns the order of operation depending on the operator..
+
+	@param character to be checked.
+	@return The order of operation.
+*/
 int Operations::orderOperation(char op) {
 
 	int order = 0;
@@ -43,14 +50,20 @@ int Operations::orderOperation(char op) {
 		order = 2;
 		break;
 	case '/':
-		order = 2;
+		order = 3;
 		break;
 	}
 	return order;
 }
 
-//FUNCTION TO APPLY OPERATOR TO EACH OPERATION
-int Operations::applyOperator(double value1, double value2, char op) {
+
+/**
+	Does corresponding operation to the two values being passed.
+
+	@param First value, second value and the character of the operation to be done.
+	@return The result of the values being passed.
+*/
+int Operations::applyOperator(int value1, int value2, char op) {
 
 	switch (op)
 	{
@@ -65,21 +78,25 @@ int Operations::applyOperator(double value1, double value2, char op) {
 
 	case '/':
 		return value1 / value2;
-	default:
-		break;
+
 
 	}
 }
 
-//FUNCTION TO DO ALL THE LOGIC IN THE OPERATIONS
-double Operations::doMath(string equation) {
+/**
+	Goes through the whole string doing corresponding calls to utilities functions.
+
+	@param string where operation needs to be done.
+	@return The result of the equation in the right order.
+*/
+	double Operations::doMath(string equation) {
 
 	stack<char> symbols;
 	stack <int> numbers;
 	bool negative = false;
 
 
-	for (int i = 0; i < equation.length(); i++)
+	for (size_t i = 0; i < equation.length(); i++)
 	{
 		if (isspace(equation[i]))
 		{
@@ -101,8 +118,34 @@ double Operations::doMath(string equation) {
 		else if (equation[i] == '-' && equation[i + 1] == '-')
 		{
 			symbols.push('+');
+			
 			i++;
 
+
+		}
+		else if (equation[i] == '+' && equation[i + 1] == '-')
+		{
+			symbols.push('+');
+			negative = true;
+			i++;
+
+		}
+		else if (equation[i] == '/' && equation[i + 1] == '-')
+		{
+			symbols.push('/');
+			negative = true;
+			i++;
+
+		}
+		else if (equation[i] == '*' && equation[i + 1] == '-')
+		{
+			symbols.push('*');
+			negative = true;
+			i++;
+
+		}
+		else if (equation[i] == '/' && equation[i + 1] == '0') {
+			cout << " You cant divide by 0\n";
 		}
 
 
@@ -119,7 +162,6 @@ double Operations::doMath(string equation) {
 			{
 
 				value = (value * 10) + getNumber(equation[i + 1]);
-				//	cout << value << "\n";
 				i++;
 
 			}
@@ -131,7 +173,7 @@ double Operations::doMath(string equation) {
 			else
 			{
 				numbers.push(value);
-				negative = false;
+				//negative = false;
 			}
 
 		}
@@ -139,9 +181,9 @@ double Operations::doMath(string equation) {
 		{
 			while (!symbols.empty() && symbols.top() != '(')
 			{
-				double value2 = numbers.top();
+				int value2 = numbers.top();
 				numbers.pop();
-				double value1 = numbers.top();
+				int value1 = numbers.top();
 				numbers.pop();
 				char op = symbols.top();
 				symbols.pop();
@@ -153,12 +195,13 @@ double Operations::doMath(string equation) {
 		}
 		else
 		{
+			
 			while (!symbols.empty() && orderOperation(symbols.top()) >= orderOperation(equation[i]) && negative == false)
 			{
 
-				double value1 = numbers.top();
+				int value2 = numbers.top();
 				numbers.pop();
-				double value2 = numbers.top();
+				int value1 = numbers.top();
 				numbers.pop();
 				char op = symbols.top();
 				symbols.pop();
@@ -166,7 +209,6 @@ double Operations::doMath(string equation) {
 				numbers.push(applyOperator(value1, value2, op));
 
 			}
-
 			symbols.push(equation[i]);
 		}
 	}
